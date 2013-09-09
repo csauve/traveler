@@ -1,9 +1,9 @@
-var feedService = require("../services/feedService");
 
 module.exports = {
     list: function(req, res) {
-        var feeds = feedService.getAllFeeds();
-        res.json(feeds);
+        //var feeds = feedService.getAllFeeds();
+        //res.json(feeds);
+        res.json("w");
     },
 
     get: function(req, res) {
