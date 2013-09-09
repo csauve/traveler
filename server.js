@@ -2,6 +2,10 @@ var config = require("./config");
 var express = require("express");
 var app = express();
 
+//connect to database
+var mongoose = require("mongoose");
+mongoose.connect(config.dbConnectionString);
+
 var getResourceController = function(resourceName) {
     return require("./resources/" + resourceName + "Resource");
 };
@@ -32,5 +36,5 @@ app.all(config.apiPrefix + "/:resource/:action/:id?", function(req, res) {
     getResourceController(req.params.resource)[req.params.action](req, res);
 });
 
-app.listen(config.port);
-console.log("Listening on port " + config.port);
+app.listen(config.port, config.bindAddress);
+console.log("Listening on http://" + config.bindAddress + ":" + config.port + config.apiPrefix);

@@ -1,0 +1,309 @@
+/* general */
+
+body {
+  padding: 0px;
+  margin: 0px;
+  padding-top: 50px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 11pt;
+  background: #0c3039;
+}
+
+body:before {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100%;
+  height: 800px;
+  content: '';
+  z-index: -2;
+  background: #0c3039 url('http://i.imgur.com/zndlQ5e.jpg') no-repeat center top;
+  background-size: cover;
+}
+
+body:after {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100%;
+  height: 800px;
+  content: '';
+  z-index: -1;
+  background:transparent;
+  background: linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -moz-linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -ms-linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -o-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -webkit-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+}
+
+ul {
+  margin: 8px;
+  text-indent: 3px;
+  padding-left: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #be364d;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2, h3, h4 {
+  font-weight: normal;
+  letter-spacing: 0.09em;
+}
+
+.inline-item {
+  display: inline-block;
+}
+
+.container {
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ul.horizontal-list > li {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+ul.horizontal-list > li:first-of-type {
+  margin-left: 0px;
+}
+
+nav ul.horizontal-list {
+  margin: 0px;
+  padding: 0px;
+  text-indent: 0px;
+}
+
+nav ul.horizontal-list > li a {
+  padding: 8px;
+}
+
+/* navbar general */
+
+#navbar {
+  z-index: 100;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  background: #000000;
+  color: #a0a0a0;
+}
+
+#navbar a {
+  color: #a0a0a0;
+  text-decoration: none;
+}
+
+#navbar a:hover, .navbar .active {
+  color: #ffffff;
+}
+
+#navbar-upper, #navbar-lower {
+  padding: 4px;
+  line-height: 25px;
+}
+
+#navbar-upper .nav-block, #navbar-lower .nav-block {
+  display: inline-block;
+}
+
+/* upper navbar */
+
+a#navbar-brand {
+  background: url('../img/destinyhub/destinyhub_icon_small.png') no-repeat left center;
+  font-weight: bold;
+  color: #ffffff;
+  padding: 8px 8px 8px 50px;
+}
+
+nav#nav-social {
+  font-size: 14pt;
+}
+
+/* navbar lower */
+
+#navbar-lower {
+  background: #202020;
+}
+
+
+/* main */
+
+#main-page-content {
+  padding-bottom: 12px;
+}
+
+h1#main-page-header {
+  color:  rgba(255, 255, 255, 0.7);
+  font-size: 40pt;
+  font-weight: 100;
+  font-style: italic;
+  font-family: Georgia, serif;
+  z-index: 50;
+}
+
+.feature {
+  padding: 8px;
+  margin-bottom: 12px;
+  color: #ffffff;
+  z-index: 20;
+}
+
+
+
+
+
+/* articles */
+
+article.news-article {
+  padding: 12px;
+  border-radius: 4px;
+}
+
+article.news-article img {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+article.news-article header, article.news-article section.article-info {
+  margin-bottom: 8px;
+}
+
+article.news-article p {
+  margin-bottom: 12px;
+}
+
+.feature article.news-article {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.feature article.news-article header, .feature article.news-article header a {
+  color: #ffffff;
+}
+
+.feature article.news-article section.article-preview {
+  color: #a0a0a0;
+}
+
+.non-feature article.news-article {
+  margin-bottom: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 10;
+}
+
+.non-feature article.news-article h2, .feature article.news-article h2 {
+  font-size: 16pt;
+  line-height: 17pt;
+}
+
+article.news-article p a:after {
+  vertical-align: super;
+  font-size: 9pt;
+  font-family: 'FontAwesome';
+  content: " \F14C";
+}
+
+
+
+
+
+/* article content
+http://alistapart.com/article/creating-intrinsic-ratios-for-video */
+
+.autoscaler {
+  position: relative;
+  padding-bottom: 50%;
+  height: 0;
+}
+
+.autoscaler > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+article p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+*/
+
+
+
+
+
+/* footer */
+
+footer {
+  background: #000000;
+  padding: 8px;
+  color: #505050;
+  font-style: italic;
+  font-size: 10pt;
+}
+
+
+
+
+
+/* ================== RESPONSIVE STYLES ================== */
+
+/* single */
+@media screen and (max-width: 800px) {
+  body {
+    padding-top: 0px;
+  }
+
+  #navbar-lower {
+    clear: both;
+  }
+
+  .navbar {
+    position: inherit;
+  }
+
+  h1#main-page-header {
+    font-size: 30pt;
+  }
+
+  .responsive-smaller-text {
+    font-size: 0.9em !important;;
+  }
+}
+
+
+
+
+
+/* phone */
+@media screen and (max-width: 520px) {
+  ul.responsive-vertical > li {
+    display: block;
+    text-align: center;
+  }
+
+  nav ul.responsive-vertical > li {
+    line-height: 28pt;
+    font-size: 1.5em;
+  }
+  
+  .non-feature article.news-article h2, .feature article.news-article h2 {
+    font-size: 14pt;
+    line-height: 14pt;
+  }
+
+  .responsive-smaller-text {
+    font-size: 0.8em !important;
+  }
+}
