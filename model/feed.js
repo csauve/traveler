@@ -18,4 +18,4 @@ var Feed = new Schema({
     //modifiedBy: Schema.Types.ObjectId
 });
 
-exports = mongoose.model("Feed", Feed);
+module.exports = mongoose.model("Feed", Feed);

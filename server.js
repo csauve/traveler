@@ -2,6 +2,8 @@ var config = require("./config");
 var express = require("express");
 var app = express();
 
+app.use(express.bodyParser());
+
 //connect to database
 var mongoose = require("mongoose");
 mongoose.connect(config.dbConnectionString);

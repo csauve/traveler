@@ -1,9 +1,13 @@
+var Feed = require("../model/feed");
 
 module.exports = {
     list: function(req, res) {
-        //var feeds = feedService.getAllFeeds();
-        //res.json(feeds);
-        res.json("w");
+        Feed.find({}, function(error, result) {
+            if (error) {
+                return res.json(error);
+            }
+            res.json(result);
+        });
     },
 
     get: function(req, res) {
@@ -11,7 +15,10 @@ module.exports = {
     },
 
     create: function(req, res) {
-        res.json("new");
+        var feed = new Feed(req.body);
+        feed.save(function(error) {
+            res.json.log("Failed to save feed: " + error.message);
+        });
     },
 
     update: function(req, res) {
