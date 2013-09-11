@@ -2,7 +2,6 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var Feed = new Schema({
-    id: Schema.Types.ObjectId,
     name: {type: String, required: true, unique: true, max: 50},
     slug: {type: String, required: true, unique: true, max: 50, match: /^[\da-zA-Z-_]*$/},
     url: {type: String, required: true, max: 200},

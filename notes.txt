@@ -1,0 +1,10 @@
+{
+"name": "Example Feed",
+"slug": "example-feed",
+"url": "http://www.example.com",
+"descriptionMd": "Example description...",
+"endpoint": "http://www.example.com/rss",
+"pollingRateSec": 60,
+"defaultDigest": true,
+"defaultPublished": false
+}

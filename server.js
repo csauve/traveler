@@ -29,7 +29,7 @@ app.put(config.apiPrefix + "/:resource/:id", function(req, res) {
     getResourceController(req.params.resource).update(req, res);
 });
 
-app.delete(config.apiPrefix + "/:resource/:id", function(req, res) {
+app.del(config.apiPrefix + "/:resource/:id", function(req, res) {
     getResourceController(req.params.resource).delete(req, res);
 });
 
