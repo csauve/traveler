@@ -1,14 +1,18 @@
 var config = require("./config");
 var express = require("express");
 var mongoose = require("mongoose");
+var path = require("path");
 var app = express();
-
-app.use(express.bodyParser());
-mongoose.connect(config.dbConnectionString);
 
 process.on("uncaughtException", function(error) {
     console.log(error);
 });
+
+mongoose.connect(config.dbConnectionString);
+
+app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static")));
+app.use(app.router);
+app.use(express.bodyParser());
 
 //API routes
 var feedResource = require("./resources/feedResource");
@@ -32,6 +36,11 @@ app.get(config.apiPrefix + "/posts/:id", postResource.get);
 app.post(config.apiPrefix + "/posts", postResource.create);
 app.put(config.apiPrefix + "/posts/:id", postResource.update);
 app.del(config.apiPrefix + "/posts/:id", postResource.remove);
+
+//all other routes serve the ember app
+app.all("*", function(req, res) {
+    res.sendfile(path.join(config.webAppPath, "/index.html"));
+});
 
 app.listen(config.port, config.bindAddress);
 console.log("API running at http://" + config.bindAddress + ":" + config.port + config.apiPrefix);
