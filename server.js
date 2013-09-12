@@ -26,5 +26,12 @@ app.get(config.apiPrefix + "/subscribers/:id", subscriberResource.get);
 app.post(config.apiPrefix + "/subscribers", subscriberResource.create);
 app.del(config.apiPrefix + "/subscribers/:id", subscriberResource.remove);
 
+var postResource = require("./resources/postResource");
+app.get(config.apiPrefix + "/posts", postResource.list);
+app.get(config.apiPrefix + "/posts/:id", postResource.get);
+app.post(config.apiPrefix + "/posts", postResource.create);
+app.put(config.apiPrefix + "/posts/:id", postResource.update);
+app.del(config.apiPrefix + "/posts/:id", postResource.remove);
+
 app.listen(config.port, config.bindAddress);
 console.log("API running at http://" + config.bindAddress + ":" + config.port + config.apiPrefix);

@@ -1,13 +1,15 @@
-module.exports = {
-    copyFields: function(Model, src, dest) {
-        for (var field in Model.schema.paths) {
-            if ((field !== "_id") && (field !== "__v")) {
-                if (src[field] !== undefined) {
-                    dest[field] = src[field];
-                }
+var copyFields = function(Model, src, dest) {
+    for (var field in Model.schema.paths) {
+        if ((field !== "_id") && (field !== "__v")) {
+            if (src[field] !== undefined) {
+                dest[field] = src[field];
             }
         }
-    },
+    }
+};
+
+module.exports = {
+    copyFields: copyFields,
 
     list: function(Model, req, res) {
         Model.find(function(error, result) {
