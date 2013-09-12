@@ -1,4 +1,44 @@
-/* Put your CSS here */
-html, body {
-    margin: 20px;
+body {
+  padding: 0px;
+  margin: 0px;
+  padding-top: 50px;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 11pt;
+  background: #0c3039;
+}
+
+body:before {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100%;
+  height: 800px;
+  content: '';
+  z-index: -2;
+  background: #0c3039 url('http://i.imgur.com/zndlQ5e.jpg') no-repeat center top;
+  background-size: cover;
+}
+
+body:after {
+  position: absolute;
+  left: 0; 
+  top: 0;
+  width: 100%;
+  height: 800px;
+  content: '';
+  z-index: -1;
+  background:transparent;
+  background: linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -moz-linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -ms-linear-gradient(top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -o-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+  background: -webkit-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
+}
+
+a#destinyhub-navbar-logo {
+  background: url('../img/destinyhub/destinyhub_icon_small.png') no-repeat left center;
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 8px;
+  padding-left: 50px;
 }
