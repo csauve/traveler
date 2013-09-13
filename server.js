@@ -44,5 +44,5 @@ app.all("*", function(req, res) {
     res.sendfile(path.join(config.webAppPath, "/index.html"));
 });
 
-app.listen(config.port, config.bindAddress);
+app.listen(config.port);
 console.log("API running at http://" + config.bindAddress + ":" + config.port + config.apiPrefix);
