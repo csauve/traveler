@@ -10,7 +10,9 @@ process.on("uncaughtException", function(error) {
 
 mongoose.connect(config.dbConnectionString);
 
-app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static")));
+app.use(express.compress());
+app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static"),
+	{maxAge: 86400000}));
 app.use(app.router);
 app.use(express.bodyParser());
 
