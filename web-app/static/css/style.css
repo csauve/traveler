@@ -35,10 +35,37 @@ body:after {
   background: -webkit-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
 }
 
+a {
+  text-decoration: none;
+  color: #be364d;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #be364d;
+}
+
+ul.no-bullets, ul.no-bullets > li {
+  padding-left: 4px;
+  list-style-type: none;
+}
+
 a#destinyhub-navbar-logo {
   background: url('../img/destinyhub/destinyhub_icon_small.png') no-repeat left center;
   font-weight: bold;
   color: #ffffff;
   margin-left: 8px;
   padding-left: 50px;
+}
+
+.dropdown-menu > li > a:hover {
+  background-color: #be364d;
+}
+
+.content-wrapper {
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
 }

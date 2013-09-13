@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <title>DestinyHub</title>
   <link rel="stylesheet" href="static/css/normalize.min.css">
-  <link rel="stylesheet" href="static/css/style.css">
   <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
   <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/style.css">
+  <link rel="stylesheet" href="static/css/font-awesome.min.css">
 </head>
 <body>
 
+  <!-- application template -->
   <script type="text/x-handlebars">
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -19,40 +21,92 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a id="destinyhub-navbar-logo" class="navbar-brand" href="#">DestinyHub</a>
+          <a id="destinyhub-navbar-logo" class="navbar-brand" href="/">DestinyHub</a>
         </div>
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">News <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Latest</a></li>
-                <li><a href="#">Archive</a></li>
-                <li><a href="#">Tag Cloud</a></li>
-                <li><a href="#">Feeds</a></li>
-                <li><a href="#">Submit News</a></li>
-                <li class="divider"></li>
-                <li class="dropdown-header">The Weekly Roundup</li>
-                <li><a href="#">Read</a></li>
-                <li><a href="#">Subscribe</a></li>
+                <li><a href="/">Latest</a></li>
+                <li><a href="/roundup">The Weekly Roundup</a></li>
+                <li><a href="/archive">Archive</a></li>
+                <li><a href="/tags">Tag Cloud</a></li>
+                <li><a href="/feeds">Feeds</a></li>
+                <li><a href="/subscribe">Subscribe</a></li>
+                <li><a href="/submit">Submit News</a></li>
               </ul>
             </li>
-            <li><a href="#">Forum</a></li>
-            <li><a href="#">Destiny Links</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="http://destinyhub.net/forum/">Forum</a></li>
+            <li><a href="/links">Links</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <div class="form-group">
               <input type="text" placeholder="Search News" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+            <button type="submit" class="btn btn-success"><i class="icon-search" aria-hidden="true"></i></button>
           </form>
         </div>
       </div>
     </div>
+    {{outlet}}
+  </script>
 
+  <!-- contact us page -->
+  <script type="text/x-handlebars" id="about">
+    <div class="container">
+      <div class="content-wrapper row">
+        <div class="col-md-6">
+          <h2>About Us</h2>
+          <p><strong>DestinyHub</strong> is a news, community, and portal fansite dedicated to Bungie's upcoming game franchise, <a href="http://www.destinythegame.com/">Destiny</a>. We aim to keep you up to date with everything Destiny by promoting the best content from around the <a href="links">community</a>. We also host a <a href="http://destinyhub.net/forum/">forum</a> where you can discuss game news, share your artwork, find allies for your adventures, or just chat about whatever.</p>
+          <p>DestinyHub is run by a small group of Bungie fans for fun and the benefit of the community. We are...</p>
+          <label>Admins</label>
+          <ul>
+            <li>Con: <a href="https://twitter.com/Conscars">@Conscars</a></li>
+            <li>Rocker</li>
+            <li>Jcap</li>
+          </ul>
+          <label>Editors</label>
+          <ul>
+            <li>Ser Jergen</li>
+            <li>thesirchelios: <a href="https://twitter.com/thesirchelios">@thesirchelios</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Follow DestinyHub</h3>
+          <p>We have a variety of ways for you to stay updated depending on how you like to get news:</p>
+          <ul class="no-bullets">
+            <li><i class="icon-envelope" aria-hidden="true"></i> <a href="/subscribe">Subscribe to the Weekly Roundup</a></li>
+            <li><i class="icon-facebook-sign" aria-hidden="true"></i> <a href="https://www.facebook.com/pages/Destiny-Hub/195055977284904">Facebook</a></li>
+            <li><i class="icon-twitter-sign" aria-hidden="true"></i> <a href="https://twitter.com/DestinyHub">Twitter</a></li>
+            <li><i class="icon-youtube-sign" aria-hidden="true"></i> <a href="http://www.youtube.com/user/DestinyHubTeam">YouTube</a></li>
+            <li><i class="icon-rss-sign" aria-hidden="true"></i> <a href="/#">RSS</a></li>
+            <li><i class="icon-bookmark" aria-hidden="true"></i> Bookmark our <a href="/">homepage</a></li>
+          </ul>
+          <h3>Get in touch</h3>
+          <p>General site inquiries should be directed to the admins. For specific topics, please contact <strong>Rocker</strong> regarding social media and <strong>Con</strong> regarding site issues. The best ways to contact us are through email and private messages on the <a href="http://destinyhub.net/showgroups.php">forum</a>.</p>
+          <p>Feedback can also be left in the <a href="http://destinyhub.net/forums/19-Feedback">feedback forum</a>.</p>
+          <p>We'd love to hear from you about affiliation!</p>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <!-- page not found -->
+  <script type="text/x-handlebars" id="notFound">
+    <div class="container">
+      <div class="content-wrapper">
+        <img class="pull-right" src="static/img/not-found.png"/>
+        <h2>Page Not Found: <i>{{path}}</i></h2>
+        <p>No can do, boss. Try using the <strong>search box</strong> to find news, or check the <a href="/archive">news archive</a>.</p>
+        <p>You may also want to <a href="http://destinyhub.net/search.php">search the forums</a>.</p>
+        <h3>Follow a broken link?</h3>
+        <p>Please let us know about broken links by <a href="/about">contacting us!</a></p>
+        <span class="clearfix"></span>
+      </div>
+    </div>
   </script>
 
   <script src="static/js/libs/jquery-2.0.3.min.js"></script>
