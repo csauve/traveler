@@ -5,6 +5,7 @@ App.Router.reopen({
 });
 
 App.Router.map(function() {
+	//this.route("latest", {path: "/"});
     this.resource("about");
     this.route("notFound", {path: "/*path"});
 });

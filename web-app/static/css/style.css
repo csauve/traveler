@@ -62,6 +62,10 @@ a#destinyhub-navbar-logo {
   background-color: #be364d;
 }
 
+ul.navbar-nav a.active {
+  color: #ffffff;
+}
+
 .content-wrapper {
   padding: 8px;
   border-radius: 4px;
