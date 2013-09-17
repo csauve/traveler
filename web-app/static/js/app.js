@@ -1,11 +1,13 @@
-App = Ember.Application.create();
-
-App.Router.reopen({
-	location: "history"
-});
-
-App.Router.map(function() {
-	//this.route("latest", {path: "/"});
-    this.resource("about");
-    this.route("notFound", {path: "/*path"});
+angular.module("traveler", []).config(function($routeProvider, $locationProvider) {
+    $locationProvider.html5Mode(true);
+    $routeProvider
+    .when("/", {controller: HomeCtrl, templateUrl: "/static/html/home.html"})
+    .when("/about", {templateUrl: "/static/html/about.html"})
+    .when("/links", {controller: "LinksCtrl", templateUrl: "/static/html/links.html"})
+    .when("/roundup", {controller: "RoundupCtrl", templateUrl: "/static/html/roundup.html"})
+    .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
+    .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
+    .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
+    .when("submit", controller: "SubmitCtrl", templateUrl: "/static/html/submit.html")
+    .when("/feeds", {controller: "FeedsCtrl", templateUrl: "/static/html/feeds.html"});
 });
