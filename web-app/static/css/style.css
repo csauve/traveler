@@ -75,3 +75,5 @@ ul.navbar-nav a.active {
   margin-bottom: 12px;
   background-color: rgba(255, 255, 255, 0.8);
 }
+
+img.media-object { max-width: 64px; max-height:64px; }
