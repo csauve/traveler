@@ -6,6 +6,7 @@ module.exports = {
     list: function(req, res) {
         Link.find().sort("category name").exec(function(error, result) {
             if (!error) {
+                //group links into categories
                 var categorized = {};
                 for (var i = 0; i < result.length; i++) {
                     var category = result[i].category;
