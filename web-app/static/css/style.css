@@ -4,12 +4,11 @@ body {
   padding-top: 50px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 11pt;
-  /*background: #0c3039;*/
-  background: #ffffff;
+  background: #0c3039 url('http://i.imgur.com/zndlQ5e.jpg') no-repeat center top;
+  background-size: cover;
 }
 
 /*
-
 body:before {
   position: absolute;
   left: 0; 
@@ -21,7 +20,6 @@ body:before {
   background: #0c3039 url('http://i.imgur.com/zndlQ5e.jpg') no-repeat center top;
   background-size: cover;
 }
-
 body:after {
   position: absolute;
   left: 0; 
@@ -37,7 +35,6 @@ body:after {
   background: -o-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
   background: -webkit-linear-gradient( top, rgba(12, 48, 57, 0) 0%, #0c3039 100% );
 }
-
 */
 
 a {

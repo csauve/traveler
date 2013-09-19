@@ -4,7 +4,7 @@ var app = angular.module("traveler", []).config(function($routeProvider, $locati
     //.when("/", {controller: HomeCtrl, templateUrl: "/static/html/home.html"})
     .when("/", {templateUrl: "/static/html/home.html"})
     .when("/about", {templateUrl: "/static/html/about.html"})
-    .when("/links", {templateUrl: "/static/html/links.html"})
+    .when("/links", {controller: "LinksCtrl", templateUrl: "/static/html/links.html"})
     // .when("/roundup", {controller: "RoundupCtrl", templateUrl: "/static/html/roundup.html"})
     // .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
@@ -22,6 +22,29 @@ function FeedsCtrl($scope) {
     $.get("/api/feeds", function(response) {
         $scope.$apply(function() {
             $scope.feeds = response;
+        });
+    });
+}
+
+function LinksCtrl($scope) {
+    $scope.editLink = {};
+
+    $scope.submitEditLink = function() {
+        $.post("/api/links", $scope.editLink, function(response) {
+            $scope.$apply(function() {
+                var category = response.category;
+                if (!$scope.categories[category]) {
+                    $scope.categories[category] = [];
+                }
+                $scope.categories[category].push(response);
+                $("#editLinkModal").modal("hide");
+            });
+        });
+    };
+
+    $.get("/api/links", function(response) {
+        $scope.$apply(function() {
+            $scope.categories = response;
         });
     });
 }

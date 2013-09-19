@@ -1,12 +1,12 @@
 <div class="container">
-	<h2>Feeds</h2>
-	<p>These feeds supply DestinyHub with live news. If you're interested in integrating your Twitter, YouTube channel, Facebook page, blog, articles, or anything else, <a href="/about">let us know!</a></p>
-	
-	<div ng-repeat="feed in feeds" class="media">
-        <a class="pull-left" href="#"><img class="media-object" src=""></a>
-        <div class="media-body">
-          <a href="{{feed.url}}"><h4 class="media-heading">{{feed.name}}</h4></a>
-          <p>{{feed.descriptionMd}}</p>
-        </div>
-      </div>
+  <h2>Feeds</h2>
+  <p>These feeds supply DestinyHub with live news. If you're interested in integrating your Twitter, YouTube channel, Facebook page, blog, articles, or anything else, <a href="/about">let us know!</a></p>
+  
+  <div ng-repeat="feed in feeds" class="media">
+    <a class="pull-left" href="#"><img class="media-object" src=""></a>
+    <div class="media-body">
+      <a href="{{feed.url}}"><h4 class="media-heading">{{feed.name}}</h4></a>
+      <p>{{feed.descriptionMd}}</p>
+    </div>
+  </div>
 </div>

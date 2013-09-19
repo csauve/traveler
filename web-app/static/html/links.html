@@ -1,22 +1,71 @@
-<div class="container">
-  <h2>Community Links</h2>
-
-    
-  <div class="panel panel-default">
-    <div class="panel-heading"><h4>Official</h4></div>
-    <div class="panel-body">
-
-      <div class="media">
-        <a class="pull-left" href="#"><img class="media-object" src=""></a>
-        <div class="media-body">
-          <h4 class="media-heading">Media heading</h4>
-          <p>...</p>
+<div class="modal fade" id="editLinkModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3>New Link</h3>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="editName">Name:</label>
+            <input id="editName" class="form-control" type="text" ng-model="editLink.name" required />
+          </div>
+          <div class="form-group">
+            <label for="editCategory">Category:</label>
+            <input id="editCategory" class="form-control" type="text" ng-model="editLink.category" required />  
+          </div>
+          <div class="form-group">
+            <label for="editURL">URL:</label>
+            <input id="editURL" class="form-control" type="text" ng-model="editLink.url" required />
+          </div>
+          <div class="form-group">
+            <label for="editImageURL">Image URL:</label>
+            <input id="editImageURL" class="form-control" type="text" ng-model="editLink.imageUrl" />
+          </div>
+          <div class="form-group">
+            <label for="editDescription">Description:</label>
+            <input id="editDescription" class="form-control" type="text" ng-model="editLink.descriptionMd" required />
+          </div>
+        </form>
+        <div class="row">
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary" ng-click="submitEditLink()">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
         </div>
       </div>
-
     </div>
   </div>
+</div>
 
-  <h3>Get featured</h3>
-  <p>Want to see your site on this list? <a href="/about">Contact an admin</a> and provide us with the details!</p>
+<div class="container">
+  <div class="content-wrapper">
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-default" href="#editLinkModal" data-toggle="modal">
+        <i class="icon-plus-sign"></i> Add
+      </button>
+    </div>
+    <h2>Community Links</h2>
+
+    <div class="panel panel-default" ng-repeat="(key, value) in categories">
+      <div class="panel-heading"><h4>{{key}} ({{value.length}})</h4></div>
+      <div class="panel-body row">
+
+        <div class="col-md-4" ng-repeat="link in value">
+          <div class="media">
+            <a class="pull-left" href="#"><img class="media-object" src="{{link.imageUrl}}"></a>
+            <div class="media-body">
+              <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
+              <p>{{link.descriptionMd}}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <h3>Get featured</h3>
+    <p>Want to see your site on this list? <a href="/about">Contact an admin</a> and provide us with the details!</p>
+  </div>
 </div>
