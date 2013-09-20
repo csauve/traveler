@@ -85,3 +85,17 @@ img.media-object { max-width: 64px; max-height:64px; }
 .css-form .ng-valid {
   background-color: #d6ffd6;
 }
+
+.hover-child {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 800px) {
+  .hover-child {
+    visibility: visible;
+  }
+}
+
+.hover-parent:hover .hover-child {
+  visibility: visible;
+}

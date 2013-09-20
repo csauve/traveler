@@ -12,10 +12,10 @@
       <div class="panel-body row">
 
         <div class="col-md-4" ng-repeat="link in value">
-          <div class="media">
-            <a class="pull-left" href="#"><img class="media-object" src="{{link.imageUrl}}"></a>
+          <div class="media hover-parent">
+            <a class="pull-left" href="{{link.url}}"><img class="media-object" src="{{link.imageUrl}}"></a>
             <div class="media-body">
-              <button type="button" class="pull-right btn btn-default btn-xs" ng-click="editLink(link)"><i class="icon-edit"></i> Edit</button>
+              <button type="button" class="pull-right btn btn-default btn-xs hover-child" ng-click="editLink(link)"><i class="icon-edit"></i> Edit</button>
               <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
               <div ng-bind-html-unsafe="link.description"></div>
             </div>
@@ -63,7 +63,7 @@
         </form>
         <button ng-show="editModel._id" type="button" class="btn btn-danger" ng-click="deleteLink()">Delete</button>
         <div class="btn-group pull-right">
-          <button type="button" class="btn btn-primary" ng-click="submitEditLink()" ng-disabled="form.$invalid || isUnchanged(editModel)">Submit</button>
+          <button type="button" class="btn btn-success" ng-click="submitEditLink()" ng-disabled="form.$invalid || isUnchanged(editModel)">Submit</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
         <span class="clearfix"></span>
