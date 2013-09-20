@@ -34,6 +34,7 @@ function LinksCtrl($scope) {
 
     $scope.editLink = function(link) {
         $scope.linkBeingEdited = link;
+        $scope.editModel = {};
         $scope.editModel = angular.copy(link);
         $("#editLinkModal").modal("show");
     }

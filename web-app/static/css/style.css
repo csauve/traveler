@@ -77,3 +77,11 @@ ul.navbar-nav a.active {
 }
 
 img.media-object { max-width: 64px; max-height:64px; }
+
+.css-form .ng-invalid {
+  background-color: #ffd6d6;
+}
+
+.css-form .ng-valid {
+  background-color: #d6ffd6;
+}
