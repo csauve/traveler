@@ -27,26 +27,64 @@ function FeedsCtrl($scope) {
 }
 
 function LinksCtrl($scope) {
-    $scope.editLink = {};
+    //form backer for edit modal
+    $scope.editModel = {};
+    //serves as reference to original link when editing
+    $scope.linkBeingEdited = null;
 
-    $scope.submitEditLink = function() {
-        $.post("/api/links", $scope.editLink, function(response) {
-            $scope.$apply(function() {
-                var category = response.category;
-                if (!$scope.categories[category]) {
-                    $scope.categories[category] = [];
-                }
-                $scope.categories[category].push(response);
+    $scope.editLink = function(link) {
+        $scope.linkBeingEdited = link;
+        $scope.editModel = angular.copy(link);
+        $("#editLinkModal").modal("show");
+    }
+
+    $scope.newLink = function() {
+        $scope.linkBeingEdited = null;
+        $scope.editModel = {};
+        $("#editLinkModal").modal("show");
+    };
+
+    $scope.deleteLink = function() {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/links/" + $scope.editModel._id,
+            success: function(response) {
                 $("#editLinkModal").modal("hide");
-            });
+                loadLinks();
+            }
         });
     };
 
-    $.get("/api/links", function(response) {
-        $scope.$apply(function() {
-            $scope.categories = response;
+    $scope.submitEditLink = function() {
+        //if editing an existing link
+        if ($scope.editModel._id) {
+            $.ajax({
+                type: "PUT",
+                url: "/api/links/" + $scope.editModel._id,
+                contentType: "application/json",
+                data: JSON.stringify($scope.editModel),
+                success: function(response) {
+                    $("#editLinkModal").modal("hide");
+                    loadLinks();
+                }
+            });
+        } else { //otherwise, creating a new link
+            $.post("/api/links", $scope.editModel, function(response) {
+                $("#editLinkModal").modal("hide");
+                loadLinks();
+            });
+        }
+    };
+
+    function loadLinks() {
+        $.get("/api/links", function(response) {
+            $scope.$apply(function() {
+                $scope.categories = response;
+            });
         });
-    });
+    }
+
+    loadLinks();
 }
 
 function NotFoundCtrl($scope) {

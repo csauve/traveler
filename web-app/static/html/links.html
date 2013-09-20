@@ -1,7 +1,7 @@
 <div class="container">
   <div class="content-wrapper">
     <div class="btn-group pull-right">
-      <button type="button" class="btn btn-default" href="#editLinkModal" data-toggle="modal">
+      <button type="button" class="btn btn-default" ng-click="newLink()">
         <i class="icon-plus-sign"></i> Add
       </button>
     </div>
@@ -15,6 +15,7 @@
           <div class="media">
             <a class="pull-left" href="#"><img class="media-object" src="{{link.imageUrl}}"></a>
             <div class="media-body">
+              <button type="button" class="pull-right btn btn-default btn-xs" ng-click="editLink(link)"><i class="icon-edit"></i> Edit</button>
               <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
               <div ng-bind-html-unsafe="link.description"></div>
             </div>
@@ -34,38 +35,39 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3>New Link</h3>
+        <h3 ng-show="editModel._id">{{linkBeingEdited.name}}</h3>
+        <h3 ng-hide="editModel._id">New Link</h3>
       </div>
       <div class="modal-body">
         <form role="form">
           <div class="form-group">
             <label for="editName">Name:</label>
-            <input id="editName" class="form-control" type="text" ng-model="editLink.name" required />
+            <input id="editName" class="form-control" type="text" ng-model="editModel.name" required />
           </div>
           <div class="form-group">
             <label for="editCategory">Category:</label>
-            <input id="editCategory" class="form-control" type="text" ng-model="editLink.category" required />  
+            <input id="editCategory" class="form-control" type="text" ng-model="editModel.category" required />  
           </div>
           <div class="form-group">
             <label for="editURL">URL:</label>
-            <input id="editURL" class="form-control" type="text" ng-model="editLink.url" required />
+            <input id="editURL" class="form-control" type="text" ng-model="editModel.url" required />
           </div>
           <div class="form-group">
             <label for="editImageURL">Image URL:</label>
-            <input id="editImageURL" class="form-control" type="text" ng-model="editLink.imageUrl" />
+            <input id="editImageURL" class="form-control" type="text" ng-model="editModel.imageUrl" />
           </div>
           <div class="form-group">
             <label for="editDescription">Description:</label>
-            <textarea rows="3" id="editDescription" class="form-control" type="text" ng-model="editLink.descriptionMd" required />
+            <textarea rows="3" id="editDescription" class="form-control" type="text" ng-model="editModel.descriptionMd" required />
           </div>
         </form>
-        <div class="row">
-          <div class="btn-group pull-right">
-            <button type="button" class="btn btn-primary" ng-click="submitEditLink()">Submit</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          </div>
+        <button ng-show="editModel._id" type="button" class="btn btn-danger" ng-click="deleteLink()">Delete</button>
+        <div class="btn-group pull-right">
+          <button type="button" class="btn btn-primary" ng-click="submitEditLink()">Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         </div>
-      </div>
+        <span class="clearfix"></span>
+      </div> <!-- /modal-body -->
     </div>
   </div>
 </div>
