@@ -19,7 +19,13 @@ app.run(function($rootScope, $location) {
 });
 
 function SubmitCtrl($scope) {
+    var converter = new Showdown.converter();
     $scope.postModel = {};
+
+    $scope.preview = function() {
+        return $scope.postModel.descriptionMd ? converter.makeHtml($scope.postModel.descriptionMd) : "";
+    };
+
     $scope.submitPost = function() {
 
     };
