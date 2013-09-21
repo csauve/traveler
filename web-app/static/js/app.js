@@ -9,7 +9,7 @@ var app = angular.module("traveler", []).config(function($routeProvider, $locati
     // .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
     // .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
-    // .when("submit", controller: "SubmitCtrl", templateUrl: "/static/html/submit.html")
+    .when("/submit", {controller: "SubmitCtrl", templateUrl: "/static/html/submit.html"})
     .when("/feeds", {controller: "FeedsCtrl", templateUrl: "/static/html/feeds.html"})
     .otherwise({controller: "NotFoundCtrl", templateUrl: "/static/html/notfound.html"});
 });
@@ -17,6 +17,13 @@ var app = angular.module("traveler", []).config(function($routeProvider, $locati
 app.run(function($rootScope, $location) {
     $rootScope.location = $location;
 });
+
+function SubmitCtrl($scope) {
+    $scope.postModel = {};
+    $scope.submitPost = function() {
+
+    };
+}
 
 function FeedsCtrl($scope) {
     $scope.editFeed = function(feed) {

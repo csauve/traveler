@@ -8,6 +8,8 @@ var Post = new Schema({
     url: {type: String, required: true, max: 200},
     datePosted: {type: Date, required: true},
     author: {type: String, max: 50},
+    submitterName: {type: String, max: 50},
+    submitterWebsite: {type: String, max: 200},
     descriptionMd: {type: String, required: true, max: 300},
     tags: {type: [String], lowercase: true, trim: true, max: 30},
     digest: {type: Boolean, required: true},
