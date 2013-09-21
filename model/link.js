@@ -16,7 +16,7 @@ Link.set("toObject", {getters: true});
 Link.set("toJSON", {getters: true});
 
 Link.virtual("description").get(function() {
-	return converter.makeHtml(this.descriptionMd);
+    return this.descriptionMd ? converter.makeHtml(this.descriptionMd) : null;
 });
 
 module.exports = mongoose.model("Link", Link);

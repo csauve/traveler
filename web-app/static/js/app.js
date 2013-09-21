@@ -19,22 +19,64 @@ app.run(function($rootScope, $location) {
 });
 
 function FeedsCtrl($scope) {
-    $.get("/api/feeds", function(response) {
-        $scope.$apply(function() {
-            $scope.feeds = response;
+    $scope.editFeed = function(feed) {
+        $scope.feedBeingEdited = feed;
+        $scope.editModel = angular.copy(feed);
+        $("#editFeedModal").modal("show");
+    };
+
+    $scope.newFeed = function() {
+        $scope.feedBeingEdited = null;
+        $scope.editModel = {};
+        $("#editFeedModal").modal("show");
+    };
+
+    $scope.deleteFeed = function() {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/feeds/" + $scope.editModel._id,
+            success: function(response) {
+                $("#editFeedModal").modal("hide");
+                loadFeeds();
+            }
         });
-    });
+    };
+
+    $scope.submitEditFeed = function() {
+        //if editing an existing link
+        if ($scope.editModel._id) {
+            $.ajax({
+                type: "PUT",
+                url: "/api/feeds/" + $scope.editModel._id,
+                contentType: "application/json",
+                data: JSON.stringify($scope.editModel),
+                success: function(response) {
+                    $("#editFeedModal").modal("hide");
+                    loadFeeds();
+                }
+            });
+        } else { //otherwise, creating a new link
+            $.post("/api/feeds", $scope.editModel, function(response) {
+                $("#editFeedModal").modal("hide");
+                loadFeeds();
+            });
+        }
+    };
+
+    function loadFeeds() {
+        $.get("/api/feeds", function(response) {
+            $scope.$apply(function() {
+                $scope.feeds = response;
+            });
+        });    
+    }
+    
+    loadFeeds();
 }
 
 function LinksCtrl($scope) {
-    //form backer for edit modal
-    $scope.editModel = {};
-    //serves as reference to original link when editing
-    $scope.linkBeingEdited = null;
-
     $scope.editLink = function(link) {
         $scope.linkBeingEdited = link;
-        $scope.editModel = {};
         $scope.editModel = angular.copy(link);
         $("#editLinkModal").modal("show");
     }

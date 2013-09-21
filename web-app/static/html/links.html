@@ -50,11 +50,11 @@
           </div>
           <div class="form-group">
             <label for="editURL">URL:</label>
-            <input id="editURL" class="form-control" type="text" ng-model="editModel.url" required maxlength="200"/>
+            <input id="editURL" class="form-control" type="url" ng-model="editModel.url" required maxlength="200"/>
           </div>
           <div class="form-group">
             <label for="editImageURL">Image URL:</label>
-            <input id="editImageURL" class="form-control" type="text" ng-model="editModel.imageUrl" maxlength="200" />
+            <input id="editImageURL" class="form-control" type="url" ng-model="editModel.imageUrl" maxlength="200" />
           </div>
           <div class="form-group">
             <label for="editDescription">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>): {{700 - editModel.descriptionMd.length}} characters remaining</label>
