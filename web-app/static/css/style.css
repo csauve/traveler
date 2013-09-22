@@ -1,10 +1,9 @@
 body {
   padding: 0px;
   margin: 0px;
-  padding-top: 50px;
   font-family: Verdana, Geneva, sans-serif;
   font-size: 11pt;
-  background: #0c3039 url('http://i.imgur.com/zndlQ5e.jpg') no-repeat center top;
+  background: #0c3039 url("/static/img/backgrounds/hunter_and_warlock.jpg") no-repeat center top;
   background-size: cover;
 }
 
@@ -102,4 +101,8 @@ img.media-object { max-width: 64px; max-height:64px; }
 
 .break-word {
   word-wrap: break-word;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
 }
