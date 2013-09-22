@@ -14,7 +14,7 @@
         <form role="form" name="form" class="css-form" novalidate>
           <div class="form-group">
             <label for="title">Title:</label>
-            <input id="title" class="form-control" type="text" ng-model="postModel.title" required maxlength="150" placeholder="A title to summarize the post" />
+            <input id="title" class="form-control" type="text" ng-model="postModel.title" required maxlength="150" placeholder="A title to summarize the post" unique="/api/posts/check/title/{{postModel.title}}"/>
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -55,6 +55,11 @@
               <div ng-bind-html-unsafe="preview()" class="break-word"></div>
             </div>
           </div>
+
+          <div class="btn-group pull-right">
+            <button type="button" class="btn btn-success" ng-click="submitPost()" ng-disabled="form.$invalid || isUnchanged(postModel)">Submit</button>
+          </div>
+          <span class="clearfix"></span>
         </form>
       </div>
     </div>

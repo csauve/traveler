@@ -34,6 +34,7 @@ app.del(config.apiPrefix + "/subscribers/:id", subscriberResource.remove);
 
 var postResource = require("./resources/postResource");
 app.get(config.apiPrefix + "/posts", postResource.list);
+app.post(config.apiPrefix + "/posts/check/title/:query", postResource.checkTitle);
 app.get(config.apiPrefix + "/posts/:id", postResource.get);
 app.post(config.apiPrefix + "/posts", postResource.create);
 app.put(config.apiPrefix + "/posts/:id", postResource.update);

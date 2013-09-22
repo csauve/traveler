@@ -18,6 +18,23 @@ app.run(function($rootScope, $location) {
     $rootScope.location = $location;
 });
 
+app.directive("unique", function() {
+    return {
+        require: "ngModel",
+        link: function(scope, elem, attrs, ctrl) {
+            scope.$watch(attrs.ngModel, function() {
+                if (ctrl.$viewValue && ctrl.$viewValue.length > 0) {
+                    $.post(encodeURI(attrs.unique),
+                        function (results) {
+                            ctrl.$setValidity("unique", results.length == 0);
+                        }
+                    );
+                }
+            });
+        }
+    };
+});
+
 function SubmitCtrl($scope) {
     var converter = new Showdown.converter();
     $scope.postModel = {};
@@ -27,7 +44,20 @@ function SubmitCtrl($scope) {
     };
 
     $scope.submitPost = function() {
-
+        $scope.postModel.datePosted = new Date();
+        $.ajax({
+            type: "POST",
+            url: "/api/posts",
+            contentType: "application/json",
+            data: JSON.stringify($scope.postModel),
+            success: function(response) {
+                console.log(response);
+                $scope.postModel = {};
+            },
+            error: function(response) {
+                console.log(response); //todo: show user an error happened
+            }
+        });
     };
 }
 

@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var Post = new Schema({
     feedId: Schema.Types.ObjectId,
-    title: {type: String, required: true, max: 150},
-    slug: {type: String, required: true, unique: true, max: 50, match: /^[\da-zA-Z-_]*$/},
+    title: {type: String, required: true, max: 150, unique: true},
+    //slug: {type: String, required: true, unique: true, max: 50, match: /^[\da-zA-Z-_]*$/},
     url: {type: String, required: true, max: 200},
     datePosted: {type: Date, required: true},
     author: {type: String, max: 50},
@@ -12,8 +12,8 @@ var Post = new Schema({
     submitterWebsite: {type: String, max: 200},
     descriptionMd: {type: String, required: true, max: 300},
     tags: {type: [String], lowercase: true, trim: true, max: 30},
-    digest: {type: Boolean, required: true},
-    published: {type: Boolean, required: true}
+    digest: {type: Boolean, required: true, default: false},
+    published: {type: Boolean, required: true, default: false}
     //layout: {type: Schema.Types.ObjectId, required: true}
 });
 

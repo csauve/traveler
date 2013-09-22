@@ -12,7 +12,7 @@ module.exports = {
     copyFields: copyFields,
 
     list: function(Model, req, res) {
-        Model.find(function(error, result) {
+        Model.find(req.query, function(error, result) {
             if (!error) {
                 res.send(result);
             } else {

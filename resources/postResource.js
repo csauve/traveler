@@ -29,5 +29,17 @@ module.exports = {
 
     remove: function(req, res) {
         genericResource.remove(Post, req, res);
+    },
+
+    //used for uniqueness check while
+    checkTitle: function(req, res) {
+        Post.find({title: req.params.query}, function(error, result) {
+            if (!error) {
+                res.send(result);
+            } else {
+                console.log(error);
+                res.send(400);
+            }
+        });
     }
 };
