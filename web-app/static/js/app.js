@@ -51,8 +51,9 @@ function SubmitCtrl($scope) {
             contentType: "application/json",
             data: JSON.stringify($scope.postModel),
             success: function(response) {
-                console.log(response);
-                $scope.postModel = {};
+                $scope.$apply(function() {
+                    $scope.postModel = {};
+                });
             },
             error: function(response) {
                 console.log(response); //todo: show user an error happened

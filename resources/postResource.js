@@ -17,6 +17,7 @@ module.exports = {
         }
         Post.createCustomPost(req.body, function(error, result) {
             if (error) {
+                console.log(error);
                 return res.send(400);
             }
             res.send(result);
