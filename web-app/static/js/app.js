@@ -1,10 +1,14 @@
-var app = angular.module("traveler", []).config(function($routeProvider, $locationProvider) {
+var app = angular.module("traveler", []);
+
+app.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
     //.when("/", {controller: HomeCtrl, templateUrl: "/static/html/home.html"})
     .when("/", {templateUrl: "/static/html/home.html"})
     .when("/about", {templateUrl: "/static/html/about.html"})
     .when("/links", {controller: "LinksCtrl", templateUrl: "/static/html/links.html"})
+    .when("/links/edit", {controller: "EditLinkCtrl", templateUrl: "/static/html/editlink.html"})
+    .when("/links/edit/:id", {controller: "EditLinkCtrl", templateUrl: "/static/html/editlink.html"})
     // .when("/roundup", {controller: "RoundupCtrl", templateUrl: "/static/html/roundup.html"})
     // .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
@@ -112,32 +116,21 @@ function FeedsCtrl($scope) {
             $scope.$apply(function() {
                 $scope.feeds = response;
             });
-        });    
+        });
     }
-    
+
     loadFeeds();
 }
 
-function LinksCtrl($scope) {
-    $scope.editLink = function(link) {
-        $scope.linkBeingEdited = link;
-        $scope.editModel = angular.copy(link);
-        $("#editLinkModal").modal("show");
-    }
-
-    $scope.newLink = function() {
-        $scope.linkBeingEdited = null;
-        $scope.editModel = {};
-        $("#editLinkModal").modal("show");
-    };
-
+function EditLinkCtrl($scope, $routeParams, $location) {
     $scope.deleteLink = function() {
         $.ajax({
             type: "DELETE",
             url: "/api/links/" + $scope.editModel._id,
             success: function(response) {
-                $("#editLinkModal").modal("hide");
-                loadLinks();
+                $scope.$apply(function() {
+                    $location.path("/links");
+                });
             }
         });
     };
@@ -151,27 +144,37 @@ function LinksCtrl($scope) {
                 contentType: "application/json",
                 data: JSON.stringify($scope.editModel),
                 success: function(response) {
-                    $("#editLinkModal").modal("hide");
-                    loadLinks();
+                    $scope.$apply(function() {
+                        $location.path("/links");
+                    });
                 }
             });
         } else { //otherwise, creating a new link
             $.post("/api/links", $scope.editModel, function(response) {
-                $("#editLinkModal").modal("hide");
-                loadLinks();
+                $scope.$apply(function() {
+                    $location.path("/links");
+                });
             });
         }
     };
 
-    function loadLinks() {
-        $.get("/api/links", function(response) {
+    $scope.editModel = {};
+    if ($routeParams.id) {
+        console.log($routeParams.id);
+        $.get("/api/links/" + $routeParams.id, function(response) {
             $scope.$apply(function() {
-                $scope.categories = response;
+                $scope.editModel = response;
             });
         });
     }
+}
 
-    loadLinks();
+function LinksCtrl($scope) {
+    $.get("/api/links", function(response) {
+        $scope.$apply(function() {
+            $scope.categories = response;
+        });
+    });
 }
 
 function NotFoundCtrl($scope) {

@@ -1,14 +1,12 @@
-<div class="container">
-  <div class="content-wrapper">
-    <img class="pull-right" src="static/img/misc/not-found.png"/>
-    <h2>Page Not Found: <i>{{location.path()}}</i></h2>
-    <p>Sorry, we couldn't find that page.<span ng-show="results.length"> Are you looking for one of these posts?</span></p>
-    <ul>
-      <li ng-repeat="result in results"><a href="/posts/{{result.title}}">{{result.title}}</a></li>
-    </ul>
-    <p>Try using the <strong>search box</strong> to find news, or check the <a href="/archive">news archive</a>. You may also want to <a href="http://destinyhub.net/search.php">search the forums</a>.</p>
-    <h3>Follow a broken link?</h3>
-    <p>Please let us know about broken links by <a href="/about">contacting us!</a></p>
-    <span class="clearfix"></span>
-  </div>
+<div class="content-wrapper">
+  <img class="pull-right" src="static/img/misc/not-found.png"/>
+  <h2>Page Not Found: <i>{{location.path()}}</i></h2>
+  <p>Sorry, we couldn't find that page.<span ng-show="results.length"> Are you looking for one of these posts?</span></p>
+  <ul>
+    <li ng-repeat="result in results"><a href="/posts/{{result.title}}">{{result.title}}</a></li>
+  </ul>
+  <p>Try using the <strong>search box</strong> to find news, or check the <a href="/archive">news archive</a>. You may also want to <a href="http://destinyhub.net/search.php">search the forums</a>.</p>
+  <h3>Follow a broken link?</h3>
+  <p>Please let us know about broken links by <a href="/about">contacting us!</a></p>
+  <span class="clearfix"></span>
 </div>

@@ -10,11 +10,18 @@ process.on("uncaughtException", function(error) {
 
 mongoose.connect(config.dbConnectionString);
 
-app.use(express.bodyParser());
-app.use(express.compress());
-app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static"),
-	{maxAge: 86400000}));
-app.use(app.router);
+app.configure(function() {
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    app.use(express.compress());
+    app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static"),
+        {maxAge: 86400000}));
+    app.use(app.router);
+    //for use behind a reverse proxy
+    if (config.trustProxy) {
+        app.enable("trust proxy");
+    }
+});
 
 //API routes
 var feedResource = require("./resources/feedResource");
@@ -42,6 +49,7 @@ app.del(config.apiPrefix + "/posts/:id", postResource.remove);
 
 var linkResource = require("./resources/linkResource");
 app.get(config.apiPrefix + "/links", linkResource.list);
+app.get(config.apiPrefix + "/links/:id", linkResource.get);
 app.post(config.apiPrefix + "/links", linkResource.create);
 app.put(config.apiPrefix + "/links/:id", linkResource.update);
 app.del(config.apiPrefix + "/links/:id", linkResource.remove);

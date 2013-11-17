@@ -23,6 +23,10 @@ module.exports = {
         });
     },
 
+    get: function(req, res) {
+        genericResource.get(Link, req, res);
+    },
+
     create: function(req, res) {
         genericResource.create(Link, req, res);
     },

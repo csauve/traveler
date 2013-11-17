@@ -1,73 +1,29 @@
-<div class="container">
-  <div class="content-wrapper">
-    <div class="btn-group pull-right">
-      <button type="button" class="btn btn-default" ng-click="newLink()">
-        <i class="icon-plus-sign"></i> Add
-      </button>
-    </div>
-    <h2>Community Links</h2>
+<div class="content-wrapper">
+  <div class="btn-group pull-right">
+    <a class="btn btn-default" href="/links/edit">
+      <i class="icon-plus-sign"></i> Add
+    </a>
+  </div>
+  <h2>Community Links</h2>
 
-    <div class="panel panel-default" ng-repeat="(key, value) in categories">
-      <div class="panel-heading"><h4>{{key}} ({{value.length}})</h4></div>
-      <div class="panel-body row">
+  <div class="panel panel-default" ng-repeat="(key, value) in categories">
+    <div class="panel-heading"><h4>{{key}} ({{value.length}})</h4></div>
+    <div class="panel-body row">
 
-        <div class="col-md-4" ng-repeat="link in value">
-          <div class="media hover-parent">
-            <a class="pull-left" href="{{link.url}}"><img class="media-object" src="{{link.imageUrl}}"></a>
-            <div class="media-body">
-              <button type="button" class="pull-right btn btn-default btn-xs hover-child" ng-click="editLink(link)"><i class="icon-edit"></i> Edit</button>
-              <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
-              <div ng-bind-html-unsafe="link.description" class="break-word"></div>
-            </div>
+      <div class="col-md-4" ng-repeat="link in value">
+        <div class="media hover-parent">
+          <a class="pull-left" href="{{link.url}}"><img class="media-object" src="{{link.imageUrl}}"></a>
+          <div class="media-body">
+            <a class="pull-right btn btn-default btn-xs hover-child" href="/links/edit/{{link._id}}"><i class="icon-edit"></i> Edit</a>
+            <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
+            <div ng-bind-html-unsafe="link.description" class="break-word"></div>
           </div>
         </div>
-
       </div>
-    </div>
 
-    <h3>Get featured</h3>
-    <p>Want to see your site on this list? <a href="/about">Contact an admin</a> and provide us with the details!</p>
-  </div>
-</div>
-
-<div class="modal fade" id="editLinkModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 ng-show="editModel._id">{{linkBeingEdited.name}}</h3>
-        <h3 ng-hide="editModel._id">New Link</h3>
-      </div>
-      <div class="modal-body">
-        <form role="form" name="form" class="css-form" novalidate>
-          <div class="form-group">
-            <label for="editName">Name:</label>
-            <input id="editName" class="form-control" type="text" ng-model="editModel.name" required maxlength="50" />
-          </div>
-          <div class="form-group">
-            <label for="editCategory">Category:</label>
-            <input id="editCategory" class="form-control" type="text" ng-model="editModel.category" required maxlength="50" />  
-          </div>
-          <div class="form-group">
-            <label for="editURL">URL:</label>
-            <input id="editURL" class="form-control" type="url" ng-model="editModel.url" required maxlength="200"/>
-          </div>
-          <div class="form-group">
-            <label for="editImageURL">Image URL:</label>
-            <input id="editImageURL" class="form-control" type="url" ng-model="editModel.imageUrl" maxlength="200" />
-          </div>
-          <div class="form-group">
-            <label for="editDescription">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>): {{700 - editModel.descriptionMd.length}} characters remaining</label>
-            <textarea rows="6" id="editDescription" class="form-control" type="text" ng-model="editModel.descriptionMd" required maxlength="700" />
-          </div>
-        </form>
-        <button ng-show="editModel._id" type="button" class="btn btn-danger" ng-click="deleteLink()">Delete</button>
-        <div class="btn-group pull-right">
-          <button type="button" class="btn btn-success" ng-click="submitEditLink()" ng-disabled="form.$invalid || isUnchanged(editModel)">Submit</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-        <span class="clearfix"></span>
-      </div> <!-- /modal-body -->
     </div>
   </div>
+
+  <h3>Get featured</h3>
+  <p>Want to see your site on this list? <a href="/about">Contact an admin</a> and provide us with the details!</p>
 </div>
