@@ -54,6 +54,11 @@ app.post(config.apiPrefix + "/links", linkResource.create);
 app.put(config.apiPrefix + "/links/:id", linkResource.update);
 app.del(config.apiPrefix + "/links/:id", linkResource.remove);
 
+//handle invalid API routes
+app.get(config.apiPrefix + "/*", function(req, res) {
+    res.send(404);
+});
+
 //all other routes serve the ember app
 app.all("*", function(req, res) {
     res.sendfile(path.join(config.webAppPath, "/index.html"));
