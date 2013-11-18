@@ -50,7 +50,7 @@
     <div class="btn-group pull-right">
       <button type="button" class="btn btn-default" ng-click="back()">Cancel</button>
       <button type="button" class="btn btn-success" ng-click="savePost()" ng-disabled="form.$invalid || isUnchanged(editModel)">Save</button>
-      <button type="button" class="btn btn-primary" ng-click="setPublished(!post.published)" ng-disabled="form.$invalid">{{editModel.published ? 'Unpublish' : 'Publish'}}</button>
+      <button type="button" class="btn btn-primary" ng-click="setPublished(!editModel.published)" ng-disabled="form.$invalid">{{editModel.published ? 'Unpublish' : 'Publish'}}</button>
     </div>
     <span class="clearfix"></span>
   </form>

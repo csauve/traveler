@@ -198,7 +198,6 @@ function EditFeedCtrl($scope, $routeParams, $location) {
     };
 
     if ($routeParams.id) {
-        console.log($routeParams.id);
         $.get("/api/feeds/" + $routeParams.id, function(response) {
             $scope.$apply(function() {
                 $scope.editModel = response;
@@ -253,7 +252,6 @@ function EditLinkCtrl($scope, $routeParams, $location) {
 
     $scope.editModel = {};
     if ($routeParams.id) {
-        console.log($routeParams.id);
         $.get("/api/links/" + $routeParams.id, function(response) {
             $scope.$apply(function() {
                 $scope.editModel = response;
