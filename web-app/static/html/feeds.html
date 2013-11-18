@@ -1,8 +1,6 @@
 <div class="content-wrapper">
   <div class="btn-group pull-right">
-    <button type="button" class="btn btn-default" ng-click="newFeed()">
-      <i class="icon-plus-sign"></i> Add
-    </button>
+    <a class="btn btn-default" href="/feeds/edit"><i class="icon-plus-sign"></i> Add</a>
   </div>
   <h2>Feeds</h2>
   <p>These feeds supply DestinyHub with live content. If you're interested in integrating your Twitter, YouTube channel, Facebook page, blog, articles, or anything else, <a href="/about">let us know!</a></p>
@@ -14,7 +12,7 @@
           <div class="media">
             <a class="pull-left" href="/feeds/{{feed.slug}}/posts"><img class="media-object" src="{{feed.imageUrl}}"></a>
             <div class="media-body">
-              <button type="button" class="pull-right btn btn-default btn-xs hover-child" ng-click="editFeed(feed)"><i class="icon-edit"></i> Edit</button>
+              <a class="pull-right btn btn-default btn-xs hover-child" href="/feeds/edit/{{feed._id}}"><i class="icon-edit"></i> Edit</a>
               <h4 class="media-heading">{{feed.name}}</h4>
               <a href="/feeds/{{feed.slug}}"><i class="icon-list"></i> Posts from this feed</a><br/>
               <a ng-show="feed.url" href="{{feed.url}}"><i class="icon-external-link"></i> Visit</a>
@@ -26,63 +24,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
-
-<div class="modal fade" id="editFeedModal">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h3 ng-show="editModel._id">{{feedBeingEdited.name}}</h3>
-      <h3 ng-hide="editModel._id">New Feed</h3>
-    </div>
-    <div class="modal-body">
-      <form role="form" name="form" class="css-form" novalidate>
-        <div class="form-group">
-          <label for="editName">Name:</label>
-          <input id="editName" class="form-control" type="text" ng-model="editModel.name" required maxlength="50" />
-        </div>
-        <div class="form-group">
-          <label for="editSlug">Slug (<a href="http://en.wikipedia.org/wiki/Clean_URL#Slug">?</a>):</label>
-          <input id="editSlug" class="form-control" type="text" ng-model="editModel.slug" required maxlength="50" pattern="^[\da-zA-Z-_]*$" />
-        </div>
-        <div class="form-group">
-          <label for="editURL">URL:</label>
-          <input id="editURL" class="form-control" type="url" ng-model="editModel.url" maxlength="200"/>
-        </div>
-        <div class="form-group">
-          <label for="editImageURL">Image URL:</label>
-          <input id="editImageURL" class="form-control" type="url" ng-model="editModel.imageUrl" maxlength="200" />
-        </div>
-        <div class="form-group">
-          <label for="editDescription">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>): {{700 - editModel.descriptionMd.length}} characters remaining</label>
-          <textarea rows="6" id="editDescription" class="form-control" type="text" ng-model="editModel.descriptionMd"  maxlength="700" />
-        </div>
-        <div class="form-group">
-          <label for="editEndpoint">Endpoint:</label>
-          <input id="editEndpoint" class="form-control" type="text" ng-model="editModel.endpoint" required maxlength="200"/>
-        </div>
-        <div class="form-group">
-          <label for="editRate">Polling Rate (Seconds):</label>
-          <input id="editRate" class="form-control" type="number" ng-model="editModel.pollingRateSec" required />
-        </div>
-        <div class="form-group">
-          <input id="editDigest" type="checkbox" ng-model="editModel.defaultDigest"/>
-          <label for="editDigest">Include posts in roundup by default</label>
-        </div>
-        <div class="form-group">
-          <input id="editPublished" type="checkbox" ng-model="editModel.defaultPublished"/>
-          <label for="editPublished">Posts published by default</label>
-        </div>
-      </form>
-      <button ng-show="editModel._id" type="button" class="btn btn-danger" ng-click="deleteFeed()">Delete</button>
-      <div class="btn-group pull-right">
-        <button type="button" class="btn btn-success" ng-click="submitEditFeed()" ng-disabled="form.$invalid || isUnchanged(editModel)">Submit</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-      <span class="clearfix"></span>
-    </div> <!-- /modal-body -->
   </div>
 </div>

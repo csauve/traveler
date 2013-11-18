@@ -15,6 +15,8 @@ app.config(function($routeProvider, $locationProvider) {
     // .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
     .when("/submit", {controller: "SubmitCtrl", templateUrl: "/static/html/submit.html"})
     .when("/feeds", {controller: "FeedsCtrl", templateUrl: "/static/html/feeds.html"})
+    .when("/feeds/edit", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
+    .when("/feeds/edit/:id", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
     .otherwise({controller: "NotFoundCtrl", templateUrl: "/static/html/notfound.html"});
 });
 
@@ -66,26 +68,15 @@ function SubmitCtrl($scope) {
     };
 }
 
-function FeedsCtrl($scope) {
-    $scope.editFeed = function(feed) {
-        $scope.feedBeingEdited = feed;
-        $scope.editModel = angular.copy(feed);
-        $("#editFeedModal").modal("show");
-    };
-
-    $scope.newFeed = function() {
-        $scope.feedBeingEdited = null;
-        $scope.editModel = {};
-        $("#editFeedModal").modal("show");
-    };
-
+function EditFeedCtrl($scope, $routeParams, $location) {
     $scope.deleteFeed = function() {
         $.ajax({
             type: "DELETE",
             url: "/api/feeds/" + $scope.editModel._id,
             success: function(response) {
-                $("#editFeedModal").modal("hide");
-                loadFeeds();
+                $scope.$apply(function() {
+                    $location.path("/feeds");
+                });
             }
         });
     };
@@ -99,27 +90,41 @@ function FeedsCtrl($scope) {
                 contentType: "application/json",
                 data: JSON.stringify($scope.editModel),
                 success: function(response) {
-                    $("#editFeedModal").modal("hide");
-                    loadFeeds();
+                    $scope.$apply(function() {
+                        $location.path("/feeds");
+                    });
                 }
             });
         } else { //otherwise, creating a new link
             $.post("/api/feeds", $scope.editModel, function(response) {
-                $("#editFeedModal").modal("hide");
-                loadFeeds();
+                $scope.$apply(function() {
+                    $location.path("/feeds");
+                });
             });
         }
     };
 
-    function loadFeeds() {
-        $.get("/api/feeds", function(response) {
+    $scope.editModel = {
+        defaultDigest: true,
+        defaultPublished: true
+    };
+
+    if ($routeParams.id) {
+        console.log($routeParams.id);
+        $.get("/api/feeds/" + $routeParams.id, function(response) {
             $scope.$apply(function() {
-                $scope.feeds = response;
+                $scope.editModel = response;
             });
         });
     }
+}
 
-    loadFeeds();
+function FeedsCtrl($scope) {
+    $.get("/api/feeds", function(response) {
+        $scope.$apply(function() {
+            $scope.feeds = response;
+        });
+    });
 }
 
 function EditLinkCtrl($scope, $routeParams, $location) {
