@@ -1,4 +1,5 @@
-var app = angular.module("traveler", []);
+var app = angular.module("traveler", ["ngRoute", "ngSanitize"]);
+var converter = new Showdown.converter();
 
 app.config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
@@ -14,6 +15,8 @@ app.config(function($routeProvider, $locationProvider) {
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
     // .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
     .when("/submit", {controller: "SubmitCtrl", templateUrl: "/static/html/submit.html"})
+    .when("/review", {controller: "ReviewCtrl", templateUrl: "/static/html/review.html"})
+    .when("/posts/edit/:id", {controller: "EditPostCtrl", templateUrl: "/static/html/editpost.html"})
     .when("/feeds", {controller: "FeedsCtrl", templateUrl: "/static/html/feeds.html"})
     .when("/feeds/edit", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
     .when("/feeds/edit/:id", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
@@ -41,12 +44,18 @@ app.directive("unique", function() {
     };
 });
 
-function SubmitCtrl($scope) {
-    var converter = new Showdown.converter();
+function GlobalCtrl($scope) {
+    $scope.back = function() {
+        window.history.back();
+    };
+}
+
+function SubmitCtrl($scope, $location) {
     $scope.postModel = {};
 
     $scope.preview = function() {
-        return $scope.postModel.descriptionMd ? converter.makeHtml($scope.postModel.descriptionMd) : "";
+        return $scope.editModel && $scope.editModel.descriptionMd ?
+            converter.makeHtml($scope.editModel.descriptionMd) : "";
     };
 
     $scope.submitPost = function() {
@@ -58,7 +67,7 @@ function SubmitCtrl($scope) {
             data: JSON.stringify($scope.postModel),
             success: function(response) {
                 $scope.$apply(function() {
-                    $scope.postModel = {};
+                    $location.path("/");
                 });
             },
             error: function(response) {
@@ -68,15 +77,98 @@ function SubmitCtrl($scope) {
     };
 }
 
+function ReviewCtrl($scope) {
+    function loadData() {
+        $.get("/api/posts?published=false", function(response) {
+            $scope.$apply(function() {
+                $scope.posts = response;
+            });
+        });
+    }
+
+    $scope.deletePost = function(post) {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/posts/" + post._id,
+            success: function(response) {
+                loadData();
+            }
+        });
+    };
+
+    $scope.publishPost = function(post) {
+        post.published = true;
+        $.ajax({
+            type: "PUT",
+            url: "/api/posts/" + post._id,
+            contentType: "application/json",
+            data: JSON.stringify(post),
+            success: function(response) {
+                loadData();
+            }
+        });
+    };
+
+    loadData();
+}
+
+function EditPostCtrl($scope, $routeParams, $location) {
+    $scope.preview = function() {
+        return $scope.editModel && $scope.editModel.descriptionMd ?
+            converter.makeHtml($scope.editModel.descriptionMd) : "";
+    };
+
+    $scope.setPublished = function(published) {
+        $scope.editModel.published = published;
+        $.ajax({
+            type: "PUT",
+            url: "/api/posts/" + $scope.editModel._id,
+            contentType: "application/json",
+            data: JSON.stringify($scope.editModel),
+            success: function(response) {
+                $scope.$apply(function() {
+                    $location.path("/review");
+                });
+            }
+        });
+    };
+
+    $scope.deletePost = function() {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/posts/" + $scope.editModel._id,
+            success: function(response) {
+                window.history.back();
+            }
+        });
+    };
+
+    $scope.savePost = function() {
+        $.ajax({
+            type: "PUT",
+            url: "/api/posts/" + $scope.editModel._id,
+            contentType: "application/json",
+            data: JSON.stringify($scope.editModel),
+            success: function(response) {
+                window.history.back();
+            }
+        });
+    };
+
+    $.get("/api/posts/" + $routeParams.id, function(response) {
+        $scope.$apply(function() {
+            $scope.editModel = response;
+        });
+    });
+}
+
 function EditFeedCtrl($scope, $routeParams, $location) {
     $scope.deleteFeed = function() {
         $.ajax({
             type: "DELETE",
             url: "/api/feeds/" + $scope.editModel._id,
             success: function(response) {
-                $scope.$apply(function() {
-                    $location.path("/feeds");
-                });
+                window.history.back();
             }
         });
     };
@@ -90,16 +182,12 @@ function EditFeedCtrl($scope, $routeParams, $location) {
                 contentType: "application/json",
                 data: JSON.stringify($scope.editModel),
                 success: function(response) {
-                    $scope.$apply(function() {
-                        $location.path("/feeds");
-                    });
+                    window.history.back();
                 }
             });
         } else { //otherwise, creating a new link
             $.post("/api/feeds", $scope.editModel, function(response) {
-                $scope.$apply(function() {
-                    $location.path("/feeds");
-                });
+                window.history.back();
             });
         }
     };

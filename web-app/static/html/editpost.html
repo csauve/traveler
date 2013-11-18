@@ -1,0 +1,57 @@
+<div class="content-wrapper">
+  <h2>Edit Post: {{editModel.title}}</h2>
+
+  <form role="form" name="form" class="css-form" novalidate>
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input id="title" class="form-control" type="text" ng-model="editModel.title" required maxlength="150" placeholder="A title to summarize the post"/>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="submitterName">Submitter Name</label>
+          <input id="submitterName" class="form-control" type="text" ng-model="editModel.submitterName" maxlength="50" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label for="submitterWebsite">Submitter Website</label>
+          <input id="submitterWebsite" class="form-control" type="url" ng-model="editModel.submitterWebsite" maxlength="200" placeholder="Your website (Twitter page, blog, etc.)" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="url">Link URL:</label>
+          <input id="url" class="form-control" type="url" ng-model="editModel.url" required maxlength="200" placeholder="A link to the original content (http://www.example.com)" />
+        </div>
+        <div class="form-group">
+          <label for="author">Author:</label>
+          <input id="author" class="form-control" type="text" ng-model="editModel.author" required maxlength="50" placeholder="The original creator of the content" />
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags (Comma separated):</label>
+      <input id="tags" class="form-control" type="text" ng-model="editModel.tags" maxlength="50" placeholder="Keywords to help people find this post" />
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="description">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>): {{300 - editModel.descriptionMd.length}} characters remaining</label>
+          <textarea id="description" class="form-control" type="text" ng-model="editModel.descriptionMd" required maxlength="300" rows="3" placeholder="A short description of the post. Snag the reader!" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label>Preview:</label>
+        <div ng-bind-html="preview()" class="break-word"></div>
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-danger" ng-click="deletePost()">Delete</button>
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-default" ng-click="back()">Cancel</button>
+      <button type="button" class="btn btn-success" ng-click="savePost()" ng-disabled="form.$invalid || isUnchanged(editModel)">Save</button>
+      <button type="button" class="btn btn-primary" ng-click="setPublished(!post.published)" ng-disabled="form.$invalid">{{editModel.published ? 'Unpublish' : 'Publish'}}</button>
+    </div>
+    <span class="clearfix"></span>
+  </form>
+</div>

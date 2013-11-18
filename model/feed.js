@@ -13,10 +13,6 @@ var Feed = new Schema({
     pollingRateSec: {type: Number, min: 1, required: true, default: 3600},
     defaultDigest: {type: Boolean, required: true, default: true},
     defaultPublished: {type: Boolean, required: true, default: true}
-    //defaultLayoutId: Schema.Types.ObjectId
-
-    //dateModified: {type: Date, required: true},
-    //modifiedBy: Schema.Types.ObjectId
 });
 
 //allow virtual fields to show up in objects and json responses
