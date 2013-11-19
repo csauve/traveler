@@ -74,6 +74,10 @@ img.media-object { max-width: 64px; max-height:64px; }
   background-color: #d6ffd6;
 }
 
+input:disabled {
+  background-color: #ccc !important;
+}
+
 .hover-child {
   visibility: hidden;
 }

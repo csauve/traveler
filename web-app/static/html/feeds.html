@@ -10,16 +10,15 @@
       <div class="panel panel-default hover-parent">
         <div class="panel-body">
           <div class="media">
-            <a class="pull-left" href="/feeds/{{feed.slug}}/posts"><img class="media-object" src="{{feed.imageUrl}}"></a>
+            <a ng-if="feed.imageUrl" class="pull-left" href="/feeds/{{feed.slug}}/posts"><img class="media-object" src="{{feed.imageUrl}}"></a>
             <div class="media-body">
               <a class="pull-right btn btn-default btn-xs hover-child" href="/feeds/edit/{{feed._id}}"><i class="icon-edit"></i> Edit</a>
               <h4 class="media-heading">{{feed.name}}</h4>
-              <a href="/feeds/{{feed.slug}}"><i class="icon-list"></i> Posts from this feed</a><br/>
-              <a ng-show="feed.url" href="{{feed.url}}"><i class="icon-external-link"></i> Visit</a>
+              <a ng-if="feed.url" href="{{feed.url}}">Visit <i class="icon-external-link"></i></a>
             </div>
           </div>
         </div>
-        <div ng-show="feed.description" class="panel-footer">
+        <div ng-if="feed.description" class="panel-footer">
           <div ng-bind-html="feed.description" class="break-word"></div>
         </div>
       </div>

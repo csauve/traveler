@@ -9,28 +9,64 @@
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
-          <label for="submitterName">Submitter Name</label>
-          <input id="submitterName" class="form-control" type="text" ng-model="editModel.submitterName" maxlength="50" placeholder="Your name" />
-        </div>
-        <div class="form-group">
-          <label for="submitterWebsite">Submitter Website</label>
-          <input id="submitterWebsite" class="form-control" type="url" ng-model="editModel.submitterWebsite" maxlength="200" placeholder="Your website (Twitter page, blog, etc.)" />
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
           <label for="url">Link URL:</label>
           <input id="url" class="form-control" type="url" ng-model="editModel.url" required maxlength="200" placeholder="A link to the original content (http://www.example.com)" />
         </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group">
           <label for="author">Author:</label>
           <input id="author" class="form-control" type="text" ng-model="editModel.author" required maxlength="50" placeholder="The original creator of the content" />
         </div>
       </div>
     </div>
+
     <div class="form-group">
-      <label for="tags">Tags (Comma separated):</label>
-      <input id="tags" class="form-control" type="text" ng-model="editModel.tags" maxlength="50" placeholder="Keywords to help people find this post" />
+      <input id="userSubmitted" type="checkbox" ng-model="editModel.userSubmitted"/>
+      <label for="userSubmitted">Post is User Submitted</label>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="submitterName">Submitter Name</label>
+          <input id="submitterName" class="form-control" type="text" ng-model="editModel.submitterName" maxlength="50" placeholder="The submitter's name" ng-disabled="!editModel.userSubmitted"/>
+        </div>
+        <div class="form-group">
+          <label for="submitterWebsite">Submitter Website</label>
+          <input id="submitterWebsite" class="form-control" type="url" ng-model="editModel.submitterWebsite" maxlength="200" placeholder="The submitter's website (Twitter page, blog, etc.)" ng-disabled="!editModel.userSubmitted"/>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="feedName">Feed Name</label>
+          <input id="submitterWebsite" class="form-control" type="text" ng-model="editModel.feedName" maxlength="50" placeholder="The name of the feed this post came from" ng-disabled="editModel.userSubmitted"/>
+        </div>
+        <div class="form-group">
+          <label for="feedUrl">Feed URL</label>
+          <input id="feedUrl" class="form-control" type="url" ng-model="editModel.feedUrl" maxlength="200" placeholder="A link to the feed partner's website" ng-disabled="editModel.userSubmitted"/>
+        </div>
+        <div class="form-group">
+          <label for="feedImageUrl">Feed Image URL</label>
+          <input id="feedImageUrl" class="form-control" type="url" ng-model="editModel.feedImageUrl" maxlength="200" placeholder="An image to represent the feed partner's website" ng-disabled="editModel.userSubmitted"/>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="tags">Tags (Comma separated)</label>
+          <input id="tags" class="form-control" type="text" ng-model="editModel.tags" maxlength="50" placeholder="Keywords to help people find this post" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="imageUrl">Image URL</label>
+          <input id="imageUrl" class="form-control" type="url" ng-model="editModel.imageUrl" maxlength="200" placeholder="The URL of the post's preview image" />
+        </div>
+      </div>
     </div>
 
     <div class="row">

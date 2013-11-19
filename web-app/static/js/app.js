@@ -20,7 +20,6 @@ app.config(function($routeProvider, $locationProvider) {
     .when("/feeds", {controller: "FeedsCtrl", templateUrl: "/static/html/feeds.html"})
     .when("/feeds/edit", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
     .when("/feeds/edit/:id", {controller: "EditFeedCtrl", templateUrl: "/static/html/editfeed.html"})
-    .when("/feeds/:slug", {controller: "PostsForFeedCtrl", templateUrl: "/static/html/postsforfeed.html"})
     .otherwise({controller: "NotFoundCtrl", templateUrl: "/static/html/notfound.html"});
 });
 
@@ -49,20 +48,6 @@ function GlobalCtrl($scope) {
     $scope.back = function() {
         window.history.back();
     };
-}
-
-function PostsForFeedCtrl($scope, $routeParams) {
-    $.get("/api/feeds?slug=" + $routeParams.slug, function(response) {
-        $scope.$apply(function() {
-            $scope.feed = response[0];
-        });
-    });
-    $.get("/api/posts?feedSlug=" + $routeParams.slug, function(response) {
-        $scope.$apply(function() {
-            console.log(response);
-            $scope.posts = response;
-        });
-    });
 }
 
 function SubmitCtrl($scope, $location) {

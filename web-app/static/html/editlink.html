@@ -4,23 +4,23 @@
 
   <form role="form" name="form" class="css-form" novalidate>
     <div class="form-group">
-      <label for="editName">Name:</label>
+      <label for="editName">Name</label>
       <input id="editName" class="form-control" type="text" ng-model="editModel.name" required maxlength="50" />
     </div>
     <div class="form-group">
-      <label for="editCategory">Category:</label>
+      <label for="editCategory">Category</label>
       <input id="editCategory" class="form-control" type="text" ng-model="editModel.category" required maxlength="50" />
     </div>
     <div class="form-group">
-      <label for="editURL">URL:</label>
+      <label for="editURL">URL</label>
       <input id="editURL" class="form-control" type="url" ng-model="editModel.url" required maxlength="200"/>
     </div>
     <div class="form-group">
-      <label for="editImageURL">Image URL:</label>
+      <label for="editImageURL">Image URL</label>
       <input id="editImageURL" class="form-control" type="url" ng-model="editModel.imageUrl" maxlength="200" />
     </div>
     <div class="form-group">
-      <label for="editDescription">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>): {{700 - editModel.descriptionMd.length}} characters remaining</label>
+      <label for="editDescription">Description (<a target="_" href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>) {{700 - editModel.descriptionMd.length}} characters remaining</label>
       <textarea rows="6" id="editDescription" class="form-control" type="text" ng-model="editModel.descriptionMd" required maxlength="700" />
     </div>
   </form>
