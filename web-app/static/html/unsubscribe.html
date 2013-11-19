@@ -1,0 +1,14 @@
+<div class="content-wrapper">
+  <h2>Unsubscribe</h2>
+
+  <p>Are you sure you want to unsubscribe <em>{{subscriber.email}}</em>?</p>
+  <button type="button" class="btn btn-success" ng-click="unsub()">Unsubscribe</button>
+
+  <hr/>
+
+  <div ng-show="unsubbed" class="alert alert-success">
+    <strong>Your have successfully unsubscribed from our digest emails.</strong>
+  </div>
+
+  <p><a href="/">Go to the homepage.</a></p>
+</div>

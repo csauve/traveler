@@ -14,6 +14,7 @@ app.config(function($routeProvider, $locationProvider) {
     // .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
     .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
+    .when("/unsubscribe", {controller: "UnsubscribeCtrl", templateUrl: "/static/html/unsubscribe.html"})
     .when("/verifyemail", {controller: "VerifyCtrl", templateUrl: "/static/html/verified.html"})
     .when("/submit", {controller: "SubmitCtrl", templateUrl: "/static/html/submit.html"})
     .when("/review", {controller: "ReviewCtrl", templateUrl: "/static/html/review.html"})
@@ -54,6 +55,24 @@ function GlobalCtrl($scope) {
 function VerifyCtrl($scope, $location) {
     var token = ($location.search()).token;
     $.get("/api/subscribers/verify?token=" + token, function(response) {
+    });
+}
+
+function UnsubscribeCtrl($scope, $location) {
+    var token = ($location.search()).token;
+
+    $scope.unsub = function() {
+        $.get("/api/subscribers/unsubscribe?token=" + token, function(response) {
+            $scope.$apply(function() {
+                $scope.unsubbed = true;
+            });
+        });
+    };
+
+    $.get("/api/subscribers?token=" + token, function(response) {
+        $scope.$apply(function() {
+            $scope.subscriber = response[0];
+        });
     });
 }
 
