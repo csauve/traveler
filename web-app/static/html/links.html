@@ -16,7 +16,7 @@
           <div class="media-body">
             <a class="pull-right btn btn-default btn-xs hover-child" href="/links/edit/{{link._id}}"><i class="icon-edit"></i> Edit</a>
             <a href="{{link.url}}"><h4 class="media-heading">{{link.name}}</h4></a>
-            <div ng-bind-html-unsafe="link.description" class="break-word"></div>
+            <div ng-bind-html="link.description" class="break-word"></div>
           </div>
         </div>
       </div>

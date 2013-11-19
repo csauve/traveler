@@ -54,8 +54,8 @@ function SubmitCtrl($scope, $location) {
     $scope.postModel = {};
 
     $scope.preview = function() {
-        return $scope.editModel && $scope.editModel.descriptionMd ?
-            converter.makeHtml($scope.editModel.descriptionMd) : "";
+        return ($scope.postModel && $scope.postModel.descriptionMd) ?
+            converter.makeHtml($scope.postModel.descriptionMd) : "";
     };
 
     $scope.submitPost = function() {
