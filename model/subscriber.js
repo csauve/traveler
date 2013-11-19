@@ -3,7 +3,7 @@ var uuid = require("node-uuid");
 var Schema = mongoose.Schema;
 
 var Subscriber = new Schema({
-    email: {type: String, required: true, match: /^.+@.+\..+/, unique: true},
+    email: {type: String, required: true, match: /^.+@.+\..+/, unique: true, max: 100},
     verified: {type: Boolean, required: true, default: false},
     token: {type: String, required: true, unique: true}
 });

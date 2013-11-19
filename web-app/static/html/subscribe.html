@@ -1,0 +1,21 @@
+<div class="content-wrapper">
+  <h2>Subscribe</h2>
+  <p>Sign up for weekly email digests of all our Destiny news posts.</p>
+
+  <div ng-show="sent" class="alert alert-success">
+    <strong>Thanks for subscribing! Before you can receive further emails, you must click the verification link in the email we've just sent you.</strong>
+  </div>
+
+  <form role="form" name="form" class="css-form" novalidate>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" class="form-control" type="email" ng-model="email" required maxlength="100" placeholder="you@example.com" required/>
+    </div>
+
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-success" ng-click="submitEmail()" ng-disabled="form.$invalid">Subscribe</button>
+    </div>
+    <span class="clearfix"></span>
+  </form>
+
+</div>

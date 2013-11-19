@@ -13,7 +13,8 @@ app.config(function($routeProvider, $locationProvider) {
     // .when("/roundup", {controller: "RoundupCtrl", templateUrl: "/static/html/roundup.html"})
     // .when("/archive", {controller: "ArchiveCtrl", templateUrl: "/static/html/archive.html"})
     // .when("/tags", {controller: "TagsCtrl", templateUrl: "/static/html/tags.html"})
-    // .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
+    .when("/subscribe", {controller: "SubscribeCtrl", templateUrl: "/static/html/subscribe.html"})
+    .when("/verifyemail", {controller: "VerifyCtrl", templateUrl: "/static/html/verified.html"})
     .when("/submit", {controller: "SubmitCtrl", templateUrl: "/static/html/submit.html"})
     .when("/review", {controller: "ReviewCtrl", templateUrl: "/static/html/review.html"})
     .when("/posts/edit/:id", {controller: "EditPostCtrl", templateUrl: "/static/html/editpost.html"})
@@ -47,6 +48,34 @@ app.directive("unique", function() {
 function GlobalCtrl($scope) {
     $scope.back = function() {
         window.history.back();
+    };
+}
+
+function VerifyCtrl($scope, $location) {
+    var token = ($location.search()).token;
+    $.get("/api/subscribers/verify?token=" + token, function(response) {
+    });
+}
+
+function SubscribeCtrl($scope) {
+    $scope.submitEmail = function() {
+        if ($scope.email) {
+            $.ajax({
+                type: "POST",
+                url: "/api/subscribers",
+                contentType: "application/json",
+                data: JSON.stringify({email: $scope.email}),
+                success: function(response) {
+                    $scope.$apply(function() {
+                        $scope.sent = true;
+                        delete $scope.email;
+                    });
+                },
+                error: function(response) {
+                    console.log(response); //todo: show user an error happened
+                }
+            });
+        }
     };
 }
 
