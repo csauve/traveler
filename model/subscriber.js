@@ -1,3 +1,4 @@
+var emailService = require("../services/emailService");
 var mongoose = require("mongoose");
 var uuid = require("node-uuid");
 var Schema = mongoose.Schema;
@@ -9,7 +10,7 @@ var Subscriber = new Schema({
 });
 
 Subscriber.post("save", function(doc) {
-    console.log("Sending verification email to " + doc.email + " with token " + doc.token);
+    emailService.send(doc.email, "activate", "http://localhost:8080/verifyemail?token=" + doc.token);
 });
 
 Subscriber.statics.subscribe = function(email, callback) {

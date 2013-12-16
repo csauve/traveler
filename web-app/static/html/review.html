@@ -1,6 +1,7 @@
 <div class="content-wrapper">
   <h2>Unpublished Posts ({{posts.length}})</h2>
   <p>Once published, these posts will appear on the homepage.</p>
+  <p ng-if="posts.length == 0">There are no unpublished posts at this time.</p>
 
   <div ng-if="posts" class="table-responsive">
     <table class="table table-striped table-condensed">
