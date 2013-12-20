@@ -2,28 +2,47 @@ var config = require("./config");
 var express = require("express");
 var mongoose = require("mongoose");
 var path = require("path");
-var app = express();
+var log = require("winston");
 
 process.on("uncaughtException", function(error) {
-    console.log(error);
+    log.error("Uncaught exception: " + error.stack);
+    throw error;
 });
 
-mongoose.connect(config.dbConnectionString);
-
-app.configure(function() {
-    app.use(express.cookieParser());
-    app.use(express.bodyParser());
-    app.use(express.compress());
-    app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static"),
-        {maxAge: 86400000}));
-    app.use(app.router);
-    //for use behind a reverse proxy
-    if (config.trustProxy) {
-        app.enable("trust proxy");
+//setup database connection
+mongoose.connect(config.dbConnectionString, function(error) {
+    if (error) {
+        log.error("Failed to connect to database at " + config.dbConnectionString);
+        throw error;
+    } else {
+        log.info("Connected to database at " + config.dbConnectionString);
     }
 });
+mongoose.connection.on("error", function(error) {
+    log.error("Database connection error: " + error);
+});
 
-//API routes
+//configure the express server
+log.info("Configuring express");
+var app = express();
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.compress());
+app.use(config.staticPrefix, express.static(path.join(config.webAppPath, "static"),
+    {maxAge: 86400000}));
+app.use(app.router);
+if (config.trustProxy) {
+    //for use behind a reverse proxy
+    app.enable("trust proxy");
+}
+app.use(function(error, req, res, next) {
+    log.error("Error handling request: " + req);
+    log.error(error.stack);
+    res.send(500);
+});
+
+//set up routes serving the API
+log.info("Setting up routes");
 var feedResource = require("./resources/feedResource");
 app.get(config.apiPrefix + "/feeds", feedResource.list);
 app.get(config.apiPrefix + "/feeds/:id", feedResource.get);
@@ -59,10 +78,11 @@ app.get(config.apiPrefix + "/*", function(req, res) {
     res.send(404);
 });
 
-//all other routes serve the ember app
+//all other routes serve the angular app
 app.all("*", function(req, res) {
     res.sendfile(path.join(config.webAppPath, "/index.html"));
 });
 
+//start listening for connections
 app.listen(config.port);
-console.log("API running at http://" + config.bindAddress + ":" + config.port + config.apiPrefix);
+log.info("Server running on port " + config.port);

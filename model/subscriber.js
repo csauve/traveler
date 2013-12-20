@@ -10,6 +10,7 @@ var Subscriber = new Schema({
 });
 
 Subscriber.post("save", function(doc) {
+
     emailService.send(doc.email, "activate", "http://localhost:8080/verifyemail?token=" + doc.token);
 });
 

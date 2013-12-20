@@ -8,9 +8,9 @@ module.exports = {
     webAppPath: path.join(__dirname, "web-app"),
     dbConnectionString: "mongodb://localhost:27017",
     smtp: {
-        host: "example.com",
+        host: "smtp.example.com",
         user: "user",
-        password: "password",
+        password: "pass",
         ssl: false
     }
 }
