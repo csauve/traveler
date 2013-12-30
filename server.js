@@ -9,19 +9,6 @@ process.on("uncaughtException", function(error) {
     throw error;
 });
 
-//setup database connection
-mongoose.connect(config.dbConnectionString, function(error) {
-    if (error) {
-        log.error("Failed to connect to database at " + config.dbConnectionString);
-        throw error;
-    } else {
-        log.info("Connected to database at " + config.dbConnectionString);
-    }
-});
-mongoose.connection.on("error", function(error) {
-    log.error("Database connection error: " + error);
-});
-
 //configure the express server
 log.info("Configuring express");
 var app = express();
@@ -83,6 +70,20 @@ app.all("*", function(req, res) {
     res.sendfile(path.join(config.webAppPath, "/index.html"));
 });
 
-//start listening for connections
-app.listen(config.port);
-log.info("Server running on port " + config.port);
+//connect to database and start listening for requests
+mongoose.connect(config.dbConnectionString, function(error) {
+    if (error) {
+        log.error("Failed to connect to database at " + config.dbConnectionString);
+        throw error;
+    } else {
+        log.info("Connected to database at " + config.dbConnectionString);
+
+        //start listening for requests
+        app.listen(config.port);
+        log.info("Server running on port " + config.port);
+    }
+});
+
+mongoose.connection.on("error", function(error) {
+    log.error("Database connection error: " + error);
+});
